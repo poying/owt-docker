@@ -37,3 +37,6 @@ RUN cd /owt-server/dist/bin/ \
 
 ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.5.1/wait /wait
 RUN chmod +x /wait
+
+ADD ./config /config
+ADD ./start.sh /start.sh

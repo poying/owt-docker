@@ -10,13 +10,12 @@ services:
       WAIT_HOSTS: "mongo:27017"
     ports:
       - "3000:3000"
+      - "8080:8080"
     volumes:
       - "${DATA_DIR}/owt-server/logs:/owt-server/dist/logs"
-    command: sh -c "/wait && service rabbitmq-server start && cd /owt-server/dist/bin && ./init-all.sh && ./start-all.sh && sleep infinity"
+    command: sh -c "/wait && /start.sh"
     depends_on:
       - mongo
-    networks:
-      - owt
   mongo:
     image: mongo:3.4
     ports:
@@ -24,7 +23,3 @@ services:
     volumes:
       - "${DATA_DIR}/mongo/db:/data/db"
       - "${DATA_DIR}/mongo/configdb:/data/configdb"
-    networks:
-      - owt
-networks:
-  owt:
