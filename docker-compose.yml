@@ -1,0 +1,30 @@
+version: "3.7"
+services:
+  owt-server:
+    build:
+      context: ./owt-server
+      args:
+        - http_proxy
+        - https_proxy
+    environment:
+      WAIT_HOSTS: "mongo:27017"
+    ports:
+      - "3004:3004"
+    volumes:
+      - "${DATA_DIR}/owt-server/logs:/owt-server/dist/logs"
+    command: sh -c "/wait && service rabbitmq-server start && cd /owt-server/dist/bin && ./init-all.sh && ./start-all.sh && sleep infinity"
+    depends_on:
+      - mongo
+    networks:
+      - owt
+  mongo:
+    image: mongo:3.4
+    ports:
+      - "27017:27017"
+    volumes:
+      - "${DATA_DIR}/mongo/db:/data/db"
+      - "${DATA_DIR}/mongo/configdb:/data/configdb"
+    networks:
+      - owt
+networks:
+  owt:
