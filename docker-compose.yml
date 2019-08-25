@@ -10,6 +10,7 @@ services:
       WAIT_HOSTS: "mongo:27017"
     ports:
       - "3000:3000"
+      - "3300:3300"
       - "8080:8080"
     volumes:
       - "${DATA_DIR}/owt-server/logs:/owt-server/dist/logs"
