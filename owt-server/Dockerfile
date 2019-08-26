@@ -2,6 +2,7 @@ FROM ubuntu:18.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV MEDIA_SDK_VER=18.4.0
+ENV OWT_SERVER_VERSION=4.2.1
 
 # Update the system
 RUN apt-get update
@@ -19,7 +20,8 @@ RUN cd /tmp && tar -zxf MediaStack.tar.gz && cd MediaStack && ./install_media.sh
 RUN rm /tmp/MediaStack.tar.gz && rm -rf /tmp/MediaStack
 ENV MFX_HOME=/opt/intel/mediasdk
 
-RUN git clone https://github.com/open-webrtc-toolkit/owt-server.git
+RUN git clone https://github.com/open-webrtc-toolkit/owt-server.git \
+    && git checkout "v${OWT_SERVER_VERSION}"
 WORKDIR /owt-server
 
 # This is needed to patch licode
