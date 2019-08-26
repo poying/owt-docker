@@ -1,5 +1,10 @@
 version: "3.7"
 services:
+  owt-server-p2p:
+    build:
+      context: ./owt-server-p2p
+    ports:
+      - "8095:8095"
   owt-server:
     build:
       context: ./owt-server
